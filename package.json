@@ -1,7 +1,7 @@
 {
-  "name": "react-native-blade-sdk",
-  "version": "0.1.0",
-  "description": "Blade SDK for React Native",
+  "name": "@bladelabs/react-native-blade",
+  "version": "0.6.18",
+  "description": "React Native BladeSDK",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
   "types": "lib/typescript/src/index.d.ts",
@@ -43,7 +43,10 @@
     "type": "git",
     "url": "git+https://github.com/Blade-Labs/react-native-blade.git"
   },
-  "author": "Ihor Dubii <ihor.dubii@unibrix.com> (https://bladelabs.io)",
+  "author": "Blade Labs (https://www.bladelabs.io/) <hello@bladelabs.io> (https://www.bladelabs.io/)",
+  "contributors": [
+    "Ihor Dubii <the.gary.du@gmail.com> (https://gary.pp.ua/)"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/Blade-Labs/react-native-blade/issues"
