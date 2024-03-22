@@ -12,7 +12,8 @@ class BladeSdk: NSObject {
       apiKey: apiKey,
       dAppCode: dAppCode,
       network: HederaNetwork.init(rawValue: network) ?? HederaNetwork.TESTNET,
-      bladeEnv: BladeEnv.init(rawValue: bladeEnv) ?? BladeEnv.CI
+      bladeEnv: BladeEnv.init(rawValue: bladeEnv) ?? BladeEnv.CI,
+      force: force
     ) { (result, error) in
       if (result != nil) {
         do {

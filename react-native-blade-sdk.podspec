@@ -15,6 +15,7 @@ Pod::Spec.new do |s|
   s.source       = { :git => "https://github.com/Blade-Labs/react-native-blade-sdk.git", :tag => "#{s.version}" }
 
   s.source_files = "ios/**/*.{h,m,mm,swift}"
+  s.ios.deployment_target = '13.0'
 
   s.dependency 'SwiftBlade', '~> 0.6.18'
 
