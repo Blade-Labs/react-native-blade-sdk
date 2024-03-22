@@ -1,6 +1,6 @@
 {
   "name": "@bladelabs/react-native-blade-sdk",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "React Native BladeSDK",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
@@ -32,7 +32,7 @@
     "lint": "eslint \"**/*.{js,ts,tsx}\"",
     "clean": "del-cli android/build example/android/build example/android/app/build example/ios/build lib",
     "prepare": "bob build",
-    "release": "release-it"
+    "publish": "npm publish"
   },
   "keywords": [
     "react-native",
