@@ -1,6 +1,6 @@
 {
-  "name": "@bladelabs/react-native-blade",
-  "version": "0.6.17",
+  "name": "@bladelabs/react-native-blade-sdk",
+  "version": "0.0.1",
   "description": "React Native BladeSDK",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",
@@ -41,7 +41,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Blade-Labs/react-native-blade.git"
+    "url": "git+https://github.com/Blade-Labs/react-native-blade-sdk.git"
   },
   "author": "Blade Labs (https://www.bladelabs.io/) <hello@bladelabs.io> (https://www.bladelabs.io/)",
   "contributors": [
@@ -49,9 +49,9 @@
   ],
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/Blade-Labs/react-native-blade/issues"
+    "url": "https://github.com/Blade-Labs/react-native-blade-sdk/issues"
   },
-  "homepage": "https://github.com/Blade-Labs/react-native-blade#readme",
+  "homepage": "https://github.com/Blade-Labs/react-native-blade-sdk#readme",
   "publishConfig": {
     "registry": "https://registry.npmjs.org/"
   },
