@@ -11,12 +11,21 @@ npm install react-native-blade-sdk
 ## Usage
 
 ```js
-import { multiply } from 'react-native-blade-sdk';
+import BladeSdk, { BladeEnv, Network } from 'react-native-blade-sdk';
 
 // ...
 
-const result = await multiply(3, 7);
+const initResult = await BladeSdk.initialize(apiKey, dAppCode, Network.Testnet, BladeEnv.CI, true);
+const accountResult = await BladeSdk.createAccount(
+    newAccountPrivateKey,
+    ''
+);
+console.log('ACCOUNT:', accountResult);
 ```
+
+## Documentation 
+
+Visit our [BladeSDK documentation portal](https://docs.bladelabs.io/)
 
 ## Contributing
 
