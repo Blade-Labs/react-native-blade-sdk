@@ -1,10 +1,17 @@
 import * as React from 'react';
 
 import { StyleSheet, View, Button } from 'react-native';
-import BladeSdk, { BladeEnv, Network } from 'react-native-blade-sdk';
+import BladeSdk, { BladeEnv, Network } from '@bladelabs/react-native-blade-sdk';
+import type { CreateAccountData } from '@bladelabs/react-native-blade-sdk';
 import { Buffer } from 'buffer';
 
+const operatorAccountId = '0.0.1443';
+const operatorPrivateKey =
+  '3030020100300706052b8104000a04220420ebccecef769bb5597d0009123a0fd96d2cdbe041c2a2da937aaf8bdc8731799b';
+
 export default function App() {
+  let createdAccount: CreateAccountData | null = null;
+
   async function initHandler() {
     try {
       const res = await BladeSdk.initialize(
@@ -14,7 +21,16 @@ export default function App() {
         BladeEnv.CI,
         true
       );
-      console.log('INIT:', res, res.apiKey);
+      console.log('initialize:', res, res.apiKey);
+    } catch (e) {
+      console.error('BladeSdk problem', e);
+    }
+  }
+
+  async function infoHandler() {
+    try {
+      const result = await BladeSdk.getInfo();
+      console.log('getInfo:', result);
     } catch (e) {
       console.error('BladeSdk problem', e);
     }
@@ -22,11 +38,32 @@ export default function App() {
 
   async function accountHandler() {
     try {
-      const accountResult = await BladeSdk.createAccount(
+      const result = await BladeSdk.createAccount(
         '3030020100300706052b8104000a0422042047203b26c99c5f002d3b5c38b6bcd2ab46de8ad3fa90c5a39dcfdc5904dfa9a0',
         ''
       );
-      console.log('ACCOUNT:', accountResult);
+      createdAccount = result;
+      console.log('createAccount:', result);
+    } catch (e) {
+      console.error('BladeSdk problem', e);
+    }
+  }
+
+  async function deleteAccountHandler() {
+    try {
+      if (createdAccount) {
+        const result = await BladeSdk.deleteAccount(
+          createdAccount.accountId!,
+          createdAccount.privateKey,
+          operatorAccountId,
+          operatorAccountId,
+          operatorPrivateKey
+        );
+        createdAccount = null;
+        console.log('deleteAccount:', result);
+      } else {
+        console.log('Create account first!');
+      }
     } catch (e) {
       console.error('BladeSdk problem', e);
     }
@@ -34,48 +71,75 @@ export default function App() {
 
   async function signHandler() {
     try {
-      const signResult = await BladeSdk.sign(
+      const result = await BladeSdk.sign(
         Buffer.from('Hello, World!').toString('base64'),
         '3030020100300706052b8104000a0422042047203b26c99c5f002d3b5c38b6bcd2ab46de8ad3fa90c5a39dcfdc5904dfa9a0'
       );
-      console.log('SIGN:', signResult);
+      console.log('sign:', result);
     } catch (e) {
       console.error('BladeSdk problem', e);
     }
   }
 
-  async function testHandler() {
-    // try {
-    //   const res = await BladeSdk.multiply(7, 8);
-    //   console.log('TEST:', res);
-    // } catch (e) {
-    //   console.error('BladeSdk problem', e);
-    // }
+  async function balanceHandler() {
+    try {
+      const result = await BladeSdk.getBalance('0.0.1430');
+      console.log('getBalance:', result);
+    } catch (e) {
+      console.error('BladeSdk problem', e);
+    }
+  }
+
+  async function transactionsHandler() {
+    try {
+      const result = await BladeSdk.getTransactions('0.0.1430');
+      console.log('getTransactions:', result);
+    } catch (e) {
+      console.error('BladeSdk problem', e);
+    }
   }
 
   return (
     <View style={styles.container}>
       <Button
         onPress={initHandler}
-        title="Init"
+        title="initialize"
+        color="#841584"
+        accessibilityLabel=""
+      />
+      <Button
+        onPress={infoHandler}
+        title="getInfo"
         color="#841584"
         accessibilityLabel=""
       />
       <Button
         onPress={accountHandler}
-        title="Create Account"
+        title="createAccount"
+        color="#84e584"
+        accessibilityLabel=""
+      />
+      <Button
+        onPress={deleteAccountHandler}
+        title="deleteAccount"
         color="#84e584"
         accessibilityLabel=""
       />
       <Button
         onPress={signHandler}
-        title="Sign"
+        title="sign"
         color="#8484e5"
         accessibilityLabel=""
       />
       <Button
-        onPress={testHandler}
-        title="TEST"
+        onPress={balanceHandler}
+        title="getBalance"
+        color="#ff84e5"
+        accessibilityLabel=""
+      />
+      <Button
+        onPress={transactionsHandler}
+        title="getTransactions"
         color="#ff84e5"
         accessibilityLabel=""
       />

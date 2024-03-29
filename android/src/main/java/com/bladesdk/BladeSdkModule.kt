@@ -28,9 +28,9 @@ class BladeSdkModule(reactContext: ReactApplicationContext) :
         BladeEnv.valueOf(bladeEnv),
         this.reactApplicationContext,
         force
-      ) { infoData, bladeJSError ->
-        if (infoData != null) {
-          promise.resolve(gson.toJson(infoData))
+      ) { data, bladeJSError ->
+        if (data != null) {
+          promise.resolve(gson.toJson(data))
         } else {
           promise.reject(bladeJSError)
         }
@@ -40,15 +40,90 @@ class BladeSdkModule(reactContext: ReactApplicationContext) :
     }
   }
 
+  @ReactMethod fun getInfo(promise: Promise) {
+    CoroutineScope(Dispatchers.Main).launch {
+      try {
+        Blade.getInfo() { data, bladeJSError ->
+          if (data != null) {
+            promise.resolve(gson.toJson(data))
+          } else {
+            promise.reject(bladeJSError)
+          }
+        }
+      } catch (e: Exception) {
+        promise.reject(e)
+      }
+    }
+  }
+
   @ReactMethod fun createAccount(privateKey: String, deviceId: String, promise: Promise) {
     CoroutineScope(Dispatchers.Main).launch {
       try {
         Blade.createHederaAccount(
           privateKey,
           deviceId,
-        ) { accountData, bladeJSError ->
-          if (accountData != null) {
-            promise.resolve(gson.toJson(accountData))
+        ) { data, bladeJSError ->
+          if (data != null) {
+            promise.resolve(gson.toJson(data))
+          } else {
+            promise.reject(bladeJSError)
+          }
+        }
+      } catch (e: Exception) {
+        promise.reject(e)
+      }
+    }
+  }
+
+  @ReactMethod fun deleteAccount(deleteAccountId: String, deletePrivateKey: String, transferAccountId: String, operatorAccountId: String, operatorPrivateKey: String, promise: Promise) {
+    CoroutineScope(Dispatchers.Main).launch {
+      try {
+        Blade.deleteHederaAccount(
+          deleteAccountId,
+          deletePrivateKey,
+          transferAccountId,
+          operatorAccountId,
+          operatorPrivateKey,
+        ) { data, bladeJSError ->
+          if (data != null) {
+            promise.resolve(gson.toJson(data))
+          } else {
+            promise.reject(bladeJSError)
+          }
+        }
+      } catch (e: Exception) {
+        promise.reject(e)
+      }
+    }
+  }
+
+  @ReactMethod fun getBalance(accountId: String, promise: Promise) {
+    CoroutineScope(Dispatchers.Main).launch {
+      try {
+        Blade.getBalance(
+          accountId
+        ) { data, bladeJSError ->
+          if (data != null) {
+            promise.resolve(gson.toJson(data))
+          } else {
+            promise.reject(bladeJSError)
+          }
+        }
+      } catch (e: Exception) {
+        promise.reject(e)
+      }
+    }
+  }
+
+
+  @ReactMethod fun getTransactions(accountId: String, transactionType: String, nextPage: String, transactionsLimit: Double, promise: Promise) {
+    CoroutineScope(Dispatchers.Main).launch {
+      try {
+        Blade.getTransactions(
+          accountId, transactionType, nextPage, transactionsLimit.toInt()
+        ) { data, bladeJSError ->
+          if (data != null) {
+            promise.resolve(gson.toJson(data))
           } else {
             promise.reject(bladeJSError)
           }
@@ -65,9 +140,9 @@ class BladeSdkModule(reactContext: ReactApplicationContext) :
         Blade.sign(
           messageString,
           privateKey,
-        ) { signMessageData, bladeJSError ->
-          if (signMessageData != null) {
-            promise.resolve(gson.toJson(signMessageData))
+        ) { data, bladeJSError ->
+          if (data != null) {
+            promise.resolve(gson.toJson(data))
           } else {
             promise.reject(bladeJSError)
           }
