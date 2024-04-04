@@ -43,6 +43,31 @@ RCT_EXTERN_METHOD(getTransactions:(NSString *)accountId
                   resolver: (RCTPromiseResolveBlock)resolve
                   rejecter: (RCTPromiseRejectBlock)reject)
 
+RCT_EXTERN_METHOD(getCoinList:(RCTPromiseResolveBlock)resolve
+                  rejecter: (RCTPromiseRejectBlock)reject)
+
+RCT_EXTERN_METHOD(getCoinPrice:(NSString *)search
+                  currency: (NSString *)currency
+                  resolver: (RCTPromiseResolveBlock)resolve
+                  rejecter: (RCTPromiseRejectBlock)reject)
+
+RCT_EXTERN_METHOD(exchangeGetQuotes:(NSString *)sourceCode
+                  sourceAmount: (double *)sourceAmount
+                  targetCode: (NSString *)targetCode
+                  strategy: (NSString *)strategy
+                  resolver: (RCTPromiseResolveBlock)resolve
+                  rejecter: (RCTPromiseRejectBlock)reject)
+
+RCT_EXTERN_METHOD(getTradeUrl:(NSString *)strategy
+                  accountId: (NSString *)accountId
+                  sourceCode: (NSString *)sourceCode
+                  sourceAmount: (double *)sourceAmount
+                  targetCode: (NSString *)targetCode
+                  slippage: (double *)slippage
+                  serviceId: (NSString *)serviceId
+                  resolver: (RCTPromiseResolveBlock)resolve
+                  rejecter: (RCTPromiseRejectBlock)reject)
+
 RCT_EXTERN_METHOD(sign:(NSString *)messageString
                   privateKey: (NSString *)privateKey
                   resolver: (RCTPromiseResolveBlock)resolve

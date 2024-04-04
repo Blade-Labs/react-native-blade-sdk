@@ -11,7 +11,7 @@ npm install @bladelabs/react-native-blade-sdk
 ## Usage
 
 ```js
-import BladeSdk, { BladeEnv, Network } from '@bladelabs/react-native-blade-sdk';
+import BladeSdk, { BladeEnv, Network, CryptoFlowServiceStrategy } from '@bladelabs/react-native-blade-sdk';
 import type { CreateAccountData } from '@bladelabs/react-native-blade-sdk';
 
 // ...
@@ -46,6 +46,31 @@ console.log('getBalance:', balanceResult);
 
 const transactionsResult = await BladeSdk.getTransactions(operatorAccountId);
 console.log('getTransactions:', transactionsResult);
+
+const coinListResult = await BladeSdk.getCoinList();
+console.log('getCoinList:', coinListResult);
+
+const coinPriceResult = await BladeSdk.getCoinPrice('hbar', 'uah');
+console.log('getCoinPrice:', coinPriceResult);
+
+const quotesResult = await BladeSdk.exchangeGetQuotes(
+    'USD',
+    100,
+    'HBAR',
+    CryptoFlowServiceStrategy.BUY
+);
+console.log('exchangeGetQuotes:', quotesResult);
+
+const urlResult = await BladeSdk.getTradeUrl(
+    CryptoFlowServiceStrategy.BUY,
+    operatorAccountId,
+    'USD',
+    100,
+    'HBAR',
+    2,
+    'moonpay'
+);
+console.log('getTradeUrl:', urlResult);
 
 const signResult = await BladeSdk.sign(
     Buffer.from('Hello, World!').toString('base64'),

@@ -1,6 +1,6 @@
 {
   "name": "@bladelabs/react-native-blade-sdk",
-  "version": "0.6.21",
+  "version": "0.6.22",
   "description": "React Native BladeSDK",
   "main": "lib/commonjs/index",
   "module": "lib/module/index",

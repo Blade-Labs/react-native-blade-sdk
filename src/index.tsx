@@ -1,6 +1,6 @@
 import { NativeModules, Platform } from 'react-native';
 import { Network } from './models/Networks';
-import { BladeEnv } from './models/Common';
+import { BladeEnv, CryptoFlowServiceStrategy } from './models/Common';
 import type {
   BalanceData,
   CreateAccountData,
@@ -8,6 +8,10 @@ import type {
   SignMessageData,
   TransactionReceiptData,
   TransactionsHistoryData,
+  CoinInfoData,
+  CoinListData,
+  SwapQuotesData,
+  IntegrationUrlData,
 } from './models/Common';
 
 const LINKING_ERROR =
@@ -85,6 +89,51 @@ class ReactBladeSDK {
     ).then(JSON.parse);
   }
 
+  static async getCoinList(): Promise<CoinListData> {
+    return BladeSdk.getCoinList().then(JSON.parse);
+  }
+
+  static async getCoinPrice(
+    search: string,
+    currency: string = 'usd'
+  ): Promise<CoinInfoData> {
+    return BladeSdk.getCoinPrice(search, currency).then(JSON.parse);
+  }
+
+  static async exchangeGetQuotes(
+    sourceCode: string,
+    sourceAmount: number,
+    targetCode: string,
+    strategy: CryptoFlowServiceStrategy
+  ): Promise<SwapQuotesData> {
+    return BladeSdk.exchangeGetQuotes(
+      sourceCode,
+      sourceAmount,
+      targetCode,
+      strategy
+    ).then(JSON.parse);
+  }
+
+  static async getTradeUrl(
+    strategy: CryptoFlowServiceStrategy,
+    accountId: string,
+    sourceCode: string,
+    sourceAmount: number,
+    targetCode: string,
+    slippage: number,
+    serviceId: string
+  ): Promise<IntegrationUrlData> {
+    return BladeSdk.getTradeUrl(
+      strategy,
+      accountId,
+      sourceCode,
+      sourceAmount,
+      targetCode,
+      slippage,
+      serviceId
+    ).then(JSON.parse);
+  }
+
   static async sign(
     messageString: string,
     privateKey: string
@@ -97,10 +146,15 @@ class ReactBladeSDK {
 
 export default ReactBladeSDK;
 export type {
-  InfoData,
-  CreateAccountData,
   BalanceData,
-  TransactionsHistoryData,
+  CreateAccountData,
+  InfoData,
   SignMessageData,
+  TransactionReceiptData,
+  TransactionsHistoryData,
+  CoinInfoData,
+  CoinListData,
+  SwapQuotesData,
+  IntegrationUrlData,
 };
-export { BladeEnv, Network };
+export { BladeEnv, Network, CryptoFlowServiceStrategy };

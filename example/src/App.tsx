@@ -1,7 +1,11 @@
 import * as React from 'react';
 
 import { StyleSheet, View, Button } from 'react-native';
-import BladeSdk, { BladeEnv, Network } from '@bladelabs/react-native-blade-sdk';
+import BladeSdk, {
+  BladeEnv,
+  CryptoFlowServiceStrategy,
+  Network,
+} from '@bladelabs/react-native-blade-sdk';
 import type { CreateAccountData } from '@bladelabs/react-native-blade-sdk';
 import { Buffer } from 'buffer';
 
@@ -99,6 +103,55 @@ export default function App() {
     }
   }
 
+  async function getCoinListHandler() {
+    try {
+      const result = await BladeSdk.getCoinList();
+      console.log('getCoinList:', result);
+    } catch (e) {
+      console.error('BladeSdk problem', e);
+    }
+  }
+
+  async function getCoinPriceHandler() {
+    try {
+      const result = await BladeSdk.getCoinPrice('hbar', 'uah');
+      console.log('getCoinPrice:', result);
+    } catch (e) {
+      console.error('BladeSdk problem', e);
+    }
+  }
+
+  async function exchangeGetQuotesHandler() {
+    try {
+      const result = await BladeSdk.exchangeGetQuotes(
+        'USD',
+        100,
+        'HBAR',
+        CryptoFlowServiceStrategy.BUY
+      );
+      console.log('exchangeGetQuotes:', result);
+    } catch (e) {
+      console.error('BladeSdk problem', e);
+    }
+  }
+
+  async function getTradeUrlHandler() {
+    try {
+      const result = await BladeSdk.getTradeUrl(
+        CryptoFlowServiceStrategy.BUY,
+        operatorAccountId,
+        'USD',
+        100,
+        'HBAR',
+        2,
+        'moonpay'
+      );
+      console.log('getTradeUrl:', result);
+    } catch (e) {
+      console.error('BladeSdk problem', e);
+    }
+  }
+
   return (
     <View style={styles.container}>
       <Button
@@ -141,6 +194,30 @@ export default function App() {
         onPress={transactionsHandler}
         title="getTransactions"
         color="#ff84e5"
+        accessibilityLabel=""
+      />
+      <Button
+        onPress={getCoinListHandler}
+        title="getCoinList"
+        color="#338433"
+        accessibilityLabel=""
+      />
+      <Button
+        onPress={getCoinPriceHandler}
+        title="getCoinPrice"
+        color="#338433"
+        accessibilityLabel=""
+      />
+      <Button
+        onPress={exchangeGetQuotesHandler}
+        title="exchangeGetQuotes"
+        color="#333384"
+        accessibilityLabel=""
+      />
+      <Button
+        onPress={getTradeUrlHandler}
+        title="getTradeUrl"
+        color="#333384"
         accessibilityLabel=""
       />
     </View>

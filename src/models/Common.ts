@@ -5,6 +5,12 @@ export enum BladeEnv {
   CI = 'CI',
 }
 
+export enum CryptoFlowServiceStrategy {
+  BUY = 'BUY',
+  SELL = 'SELL',
+  SWAP = 'SWAP',
+}
+
 export interface InfoData {
   apiKey: string;
   dAppCode: string;
@@ -68,4 +74,95 @@ export interface TransactionReceiptData {
   topicSequenceNumber?: string;
   totalSupply?: string;
   serials: string[];
+}
+
+export interface CoinListData {
+  coins: CoinItem[];
+}
+
+export interface CoinItem {
+  id: string;
+  symbol: string;
+  name: string;
+  platforms: CoinGeckoPlatform[];
+}
+
+export interface CoinGeckoPlatform {
+  name: string;
+  address: string;
+}
+
+export interface CoinInfoData {
+  coin: CoinData;
+  priceUsd: number;
+  price?: number;
+  currency: string;
+}
+
+export interface CoinData {
+  id: string;
+  symbol: string;
+  name: string;
+  web_slug: string;
+  description: CoinDataDescription;
+  image: CoinDataImage;
+  market_data: CoinDataMarket;
+  platforms: CoinGeckoPlatform[];
+}
+
+export interface CoinDataDescription {
+  en: string;
+}
+
+export interface CoinDataImage {
+  thumb: string;
+  small: string;
+  large: string;
+}
+
+export interface CoinDataMarket {
+  current_price: { [key: string]: number };
+}
+
+export interface IntegrationUrlData {
+  url?: string;
+}
+
+export interface SwapQuotesData {
+  quotes: ICryptoFlowQuote[];
+}
+
+export interface ICryptoFlowQuote {
+  service: ICryptoFlowQuoteService;
+  source: IAssetQuote;
+  target: IAssetQuote;
+  rate: number;
+  widgetUrl?: string;
+  paymentMethods?: string[];
+}
+
+export interface ICryptoFlowQuoteService {
+  id: string;
+  name: string;
+  logo: string;
+  description?: string;
+}
+
+export interface IAssetQuote {
+  asset: ICryptoFlowAsset;
+  amountExpected: number;
+  totalFee?: number;
+}
+
+export interface ICryptoFlowAsset {
+  name: string;
+  code: string;
+  type: string;
+  address?: string;
+  chainId?: number;
+  decimals?: number;
+  minAmount?: number;
+  maxAmount?: number;
+  symbol?: string;
+  imageUrl?: string;
 }

@@ -52,7 +52,7 @@ class BladeSdk: NSObject {
                  rejecter: @escaping RCTPromiseRejectBlock
   ) {
     SwiftBlade.shared.createHederaAccount(
-      privateKey: privateKey,
+      privateKey,
       deviceId: deviceId
     ) { (result, error) in
       if (result != nil) {
@@ -125,6 +125,97 @@ class BladeSdk: NSObject {
       transactionType: transactionType,
       nextPage: nextPage,
       transactionsLimit: transactionsLimit
+    ) { (result, error) in
+      if (result != nil) {
+        do {
+          let json = try JSONEncoder().encode(result)
+          resolver(String(data: json, encoding: .utf8) ?? "{}")
+        } catch {
+          rejecter("JSON encode problem", error.localizedDescription, error)
+        }
+      } else {
+        rejecter(error?.name, error?.reason, error)
+      }
+    }
+  }
+
+  @objc(getCoinList:rejecter:)
+  func getCoinList(_ resolver: @escaping RCTPromiseResolveBlock,
+                 rejecter: @escaping RCTPromiseRejectBlock
+  ) {
+    SwiftBlade.shared.getCoinList() { (result, error) in
+      if (result != nil) {
+        do {
+          let json = try JSONEncoder().encode(result)
+          resolver(String(data: json, encoding: .utf8) ?? "{}")
+        } catch {
+          rejecter("JSON encode problem", error.localizedDescription, error)
+        }
+      } else {
+        rejecter(error?.name, error?.reason, error)
+      }
+    }
+  }
+
+  @objc(getCoinPrice:currency:resolver:rejecter:)
+  func getCoinPrice(_ search: String, currency: String,
+                 resolver: @escaping RCTPromiseResolveBlock,
+                 rejecter: @escaping RCTPromiseRejectBlock
+  ) {
+    SwiftBlade.shared.getCoinPrice(
+      search,
+      currency
+    ) { (result, error) in
+      if (result != nil) {
+        do {
+          let json = try JSONEncoder().encode(result)
+          resolver(String(data: json, encoding: .utf8) ?? "{}")
+        } catch {
+          rejecter("JSON encode problem", error.localizedDescription, error)
+        }
+      } else {
+        rejecter(error?.name, error?.reason, error)
+      }
+    }
+  }
+
+  @objc(exchangeGetQuotes:sourceAmount:targetCode:strategy:resolver:rejecter:)
+  func exchangeGetQuotes(_ sourceCode: String, sourceAmount: Double, targetCode: String, strategy: String,
+                 resolver: @escaping RCTPromiseResolveBlock,
+                 rejecter: @escaping RCTPromiseRejectBlock
+  ) {
+    SwiftBlade.shared.exchangeGetQuotes(
+      sourceCode: sourceCode,
+      sourceAmount: sourceAmount,
+      targetCode: targetCode,
+      strategy: CryptoFlowServiceStrategy.init(rawValue: strategy) ?? CryptoFlowServiceStrategy.BUY
+    ) { (result, error) in
+      if (result != nil) {
+        do {
+          let json = try JSONEncoder().encode(result)
+          resolver(String(data: json, encoding: .utf8) ?? "{}")
+        } catch {
+          rejecter("JSON encode problem", error.localizedDescription, error)
+        }
+      } else {
+        rejecter(error?.name, error?.reason, error)
+      }
+    }
+  }
+
+  @objc(getTradeUrl:accountId:sourceCode:sourceAmount:targetCode:slippage:serviceId:resolver:rejecter:)
+  func getTradeUrl(_ strategy: String, accountId: String, sourceCode: String, sourceAmount: Double, targetCode: String, slippage: Double, serviceId: String,
+                 resolver: @escaping RCTPromiseResolveBlock,
+                 rejecter: @escaping RCTPromiseRejectBlock
+  ) {
+    SwiftBlade.shared.getTradeUrl(
+      strategy: CryptoFlowServiceStrategy.init(rawValue: strategy) ?? CryptoFlowServiceStrategy.BUY,
+      accountId: accountId,
+      sourceCode: sourceCode,
+      sourceAmount: sourceAmount,
+      targetCode: targetCode,
+      slippage: slippage,
+      serviceId: serviceId
     ) { (result, error) in
       if (result != nil) {
         do {

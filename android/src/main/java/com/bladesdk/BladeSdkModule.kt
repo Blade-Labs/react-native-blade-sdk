@@ -7,6 +7,7 @@ import com.facebook.react.bridge.Promise
 import com.google.gson.Gson
 import io.bladewallet.bladesdk.Blade
 import io.bladewallet.bladesdk.BladeEnv
+import io.bladewallet.bladesdk.CryptoFlowServiceStrategy
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -122,6 +123,74 @@ class BladeSdkModule(reactContext: ReactApplicationContext) :
         Blade.getTransactions(
           accountId, transactionType, nextPage, transactionsLimit.toInt()
         ) { data, bladeJSError ->
+          if (data != null) {
+            promise.resolve(gson.toJson(data))
+          } else {
+            promise.reject(bladeJSError)
+          }
+        }
+      } catch (e: Exception) {
+        promise.reject(e)
+      }
+    }
+  }
+
+  @ReactMethod fun getCoinList(promise: Promise) {
+    CoroutineScope(Dispatchers.Main).launch {
+      try {
+        Blade.getCoinList() { data, bladeJSError ->
+          if (data != null) {
+            promise.resolve(gson.toJson(data))
+          } else {
+            promise.reject(bladeJSError)
+          }
+        }
+      } catch (e: Exception) {
+        promise.reject(e)
+      }
+    }
+  }
+
+  @ReactMethod fun getCoinPrice(search: String, currency: String = "usd", promise: Promise) {
+    CoroutineScope(Dispatchers.Main).launch {
+      try {
+        Blade.getCoinPrice(
+          search, currency
+        ) { data, bladeJSError ->
+          if (data != null) {
+            promise.resolve(gson.toJson(data))
+          } else {
+            promise.reject(bladeJSError)
+          }
+        }
+      } catch (e: Exception) {
+        promise.reject(e)
+      }
+    }
+  }
+
+  @ReactMethod fun exchangeGetQuotes(sourceCode: String, sourceAmount: Double, targetCode: String, strategy: String, promise: Promise) {
+    CoroutineScope(Dispatchers.Main).launch {
+      try {
+        Blade.exchangeGetQuotes(
+          sourceCode, sourceAmount, targetCode, CryptoFlowServiceStrategy.valueOf(strategy)
+        ) { data, bladeJSError ->
+          if (data != null) {
+            promise.resolve(gson.toJson(data))
+          } else {
+            promise.reject(bladeJSError)
+          }
+        }
+      } catch (e: Exception) {
+        promise.reject(e)
+      }
+    }
+  }
+
+  @ReactMethod fun getTradeUrl(strategy: String, accountId: String, sourceCode: String, sourceAmount: Double, targetCode: String, slippage: Double, serviceId: String, promise: Promise) {
+    CoroutineScope(Dispatchers.Main).launch {
+      try {
+        Blade.getTradeUrl(CryptoFlowServiceStrategy.valueOf(strategy), accountId, sourceCode, sourceAmount, targetCode, slippage, serviceId) { data, bladeJSError ->
           if (data != null) {
             promise.resolve(gson.toJson(data))
           } else {
