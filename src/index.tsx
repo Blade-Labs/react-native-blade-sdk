@@ -55,6 +55,16 @@ class ReactBladeSDK {
     return BladeSdk.createAccount(privateKey, deviceId).then(JSON.parse);
   }
 
+  static async associateToken(
+    tokenId: string,
+    accountId: string,
+    accountPrivateKey: string
+  ): Promise<TransactionReceiptData> {
+    return BladeSdk.associateToken(tokenId, accountId, accountPrivateKey).then(
+      JSON.parse
+    );
+  }
+
   static async deleteAccount(
     deleteAccountId: string,
     deletePrivateKey: string,

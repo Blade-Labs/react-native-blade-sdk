@@ -41,6 +41,13 @@ const deleteResult = await BladeSdk.deleteAccount(
 );
 console.log('deleteAccount:', result);
 
+const associateResult = await BladeSdk.associateToken(
+    '0.0.2661784',
+    '0.0.4232099',
+    '3030020100300706052b8104000a0422042047203b26c99c5f002d3b5c38b6bcd2ab46de8ad3fa90c5a39dcfdc5904dfa9a0'
+);
+    console.log('associateResult:', associateResult);
+
 const balanceResult = await BladeSdk.getBalance(operatorAccountId);
 console.log('getBalance:', balanceResult);
 

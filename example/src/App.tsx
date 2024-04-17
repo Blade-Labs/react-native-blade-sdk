@@ -19,7 +19,7 @@ export default function App() {
   async function initHandler() {
     try {
       const res = await BladeSdk.initialize(
-        'FG9dUBQcBaBAPgCHz7DqmNZzrJyhewAMJytjwp3VFIEMFTXQyVSIDq6wRvtPcSAt',
+        'ygUgCzRrsvhWmb3dsLcDpGnJpSZ4tk8hACmZqg9WngpuQYKdnD5m8FjfPV3XVUeB',
         'unitysdktest',
         Network.Testnet,
         BladeEnv.CI,
@@ -48,6 +48,19 @@ export default function App() {
       );
       createdAccount = result;
       console.log('createAccount:', result);
+    } catch (e) {
+      console.error('BladeSdk problem', e);
+    }
+  }
+
+  async function associateHandler() {
+    try {
+      const result = await BladeSdk.associateToken(
+        '0.0.2661784',
+        '0.0.4232099',
+        '3030020100300706052b8104000a0422042047203b26c99c5f002d3b5c38b6bcd2ab46de8ad3fa90c5a39dcfdc5904dfa9a0'
+      );
+      console.log('associateToken:', result);
     } catch (e) {
       console.error('BladeSdk problem', e);
     }
@@ -123,11 +136,17 @@ export default function App() {
 
   async function exchangeGetQuotesHandler() {
     try {
+      // const result = await BladeSdk.exchangeGetQuotes(
+      //   'USD',
+      //   200,
+      //   'HBAR',
+      //   CryptoFlowServiceStrategy.BUY
+      // );
       const result = await BladeSdk.exchangeGetQuotes(
-        'USD',
-        100,
         'HBAR',
-        CryptoFlowServiceStrategy.BUY
+        2000,
+        'USD',
+        CryptoFlowServiceStrategy.SELL
       );
       console.log('exchangeGetQuotes:', result);
     } catch (e) {
@@ -169,6 +188,12 @@ export default function App() {
       <Button
         onPress={accountHandler}
         title="createAccount"
+        color="#84e584"
+        accessibilityLabel=""
+      />
+      <Button
+        onPress={associateHandler}
+        title="associateToken"
         color="#84e584"
         accessibilityLabel=""
       />

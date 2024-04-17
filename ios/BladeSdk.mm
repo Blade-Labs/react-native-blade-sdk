@@ -24,6 +24,12 @@ RCT_EXTERN_METHOD(createAccount:(NSString *)privateKey
                   resolver: (RCTPromiseResolveBlock)resolve
                   rejecter: (RCTPromiseRejectBlock)reject)
 
+RCT_EXTERN_METHOD(associateToken:(NSString *)tokenId
+                  accountId: (NSString *)accountId
+                  accountPrivateKey: (NSString *)accountPrivateKey
+                  resolver: (RCTPromiseResolveBlock)resolve
+                  rejecter: (RCTPromiseRejectBlock)reject)
+
 RCT_EXTERN_METHOD(deleteAccount:(NSString *)deleteAccountId
                   deletePrivateKey: (NSString *)deletePrivateKey
                   transferAccountId: (NSString *)transferAccountId

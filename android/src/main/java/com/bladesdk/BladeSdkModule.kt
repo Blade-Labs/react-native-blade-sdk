@@ -33,7 +33,7 @@ class BladeSdkModule(reactContext: ReactApplicationContext) :
         if (data != null) {
           promise.resolve(gson.toJson(data))
         } else {
-          promise.reject(bladeJSError)
+          promise.reject(gson.toJson(bladeJSError))
         }
       }
     } catch (e: Exception) {
@@ -48,7 +48,7 @@ class BladeSdkModule(reactContext: ReactApplicationContext) :
           if (data != null) {
             promise.resolve(gson.toJson(data))
           } else {
-            promise.reject(bladeJSError)
+            promise.reject(gson.toJson(bladeJSError))
           }
         }
       } catch (e: Exception) {
@@ -67,7 +67,27 @@ class BladeSdkModule(reactContext: ReactApplicationContext) :
           if (data != null) {
             promise.resolve(gson.toJson(data))
           } else {
-            promise.reject(bladeJSError)
+            promise.reject(gson.toJson(bladeJSError))
+          }
+        }
+      } catch (e: Exception) {
+        promise.reject(e)
+      }
+    }
+  }
+
+  @ReactMethod fun associateToken(tokenId: String, accountId: String, accountPrivateKey: String, promise: Promise) {
+    CoroutineScope(Dispatchers.Main).launch {
+      try {
+        Blade.associateToken(
+          tokenId,
+          accountId,
+          accountPrivateKey,
+        ) { data, bladeJSError ->
+          if (data != null) {
+            promise.resolve(gson.toJson(data))
+          } else {
+            promise.reject(gson.toJson(bladeJSError))
           }
         }
       } catch (e: Exception) {
@@ -89,7 +109,7 @@ class BladeSdkModule(reactContext: ReactApplicationContext) :
           if (data != null) {
             promise.resolve(gson.toJson(data))
           } else {
-            promise.reject(bladeJSError)
+            promise.reject(gson.toJson(bladeJSError))
           }
         }
       } catch (e: Exception) {
@@ -107,7 +127,7 @@ class BladeSdkModule(reactContext: ReactApplicationContext) :
           if (data != null) {
             promise.resolve(gson.toJson(data))
           } else {
-            promise.reject(bladeJSError)
+            promise.reject(gson.toJson(bladeJSError))
           }
         }
       } catch (e: Exception) {
@@ -126,7 +146,7 @@ class BladeSdkModule(reactContext: ReactApplicationContext) :
           if (data != null) {
             promise.resolve(gson.toJson(data))
           } else {
-            promise.reject(bladeJSError)
+            promise.reject(gson.toJson(bladeJSError))
           }
         }
       } catch (e: Exception) {
@@ -142,7 +162,7 @@ class BladeSdkModule(reactContext: ReactApplicationContext) :
           if (data != null) {
             promise.resolve(gson.toJson(data))
           } else {
-            promise.reject(bladeJSError)
+            promise.reject(gson.toJson(bladeJSError))
           }
         }
       } catch (e: Exception) {
@@ -160,7 +180,7 @@ class BladeSdkModule(reactContext: ReactApplicationContext) :
           if (data != null) {
             promise.resolve(gson.toJson(data))
           } else {
-            promise.reject(bladeJSError)
+            promise.reject(gson.toJson(bladeJSError))
           }
         }
       } catch (e: Exception) {
@@ -178,7 +198,7 @@ class BladeSdkModule(reactContext: ReactApplicationContext) :
           if (data != null) {
             promise.resolve(gson.toJson(data))
           } else {
-            promise.reject(bladeJSError)
+            promise.reject(gson.toJson(bladeJSError))
           }
         }
       } catch (e: Exception) {
@@ -194,7 +214,7 @@ class BladeSdkModule(reactContext: ReactApplicationContext) :
           if (data != null) {
             promise.resolve(gson.toJson(data))
           } else {
-            promise.reject(bladeJSError)
+            promise.reject(gson.toJson(bladeJSError))
           }
         }
       } catch (e: Exception) {
@@ -213,7 +233,7 @@ class BladeSdkModule(reactContext: ReactApplicationContext) :
           if (data != null) {
             promise.resolve(gson.toJson(data))
           } else {
-            promise.reject(bladeJSError)
+            promise.reject(gson.toJson(bladeJSError))
           }
         }
       } catch (e: Exception) {

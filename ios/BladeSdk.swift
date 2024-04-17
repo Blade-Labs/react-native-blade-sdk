@@ -68,6 +68,29 @@ class BladeSdk: NSObject {
     }
   }
 
+  @objc(associateToken:accountId:accountPrivateKey:resolver:rejecter:)
+  func associateToken(_ tokenId: String, accountId: String, accountPrivateKey: String,
+                 resolver: @escaping RCTPromiseResolveBlock,
+                 rejecter: @escaping RCTPromiseRejectBlock
+  ) {
+    SwiftBlade.shared.associateToken(
+      tokenId: tokenId,
+      accountId: accountId,
+      accountPrivateKey: accountPrivateKey
+    ) { (result, error) in
+      if (result != nil) {
+        do {
+          let json = try JSONEncoder().encode(result)
+          resolver(String(data: json, encoding: .utf8) ?? "{}")
+        } catch {
+          rejecter("JSON encode problem", error.localizedDescription, error)
+        }
+      } else {
+        rejecter(error?.name, error?.reason, error)
+      }
+    }
+  }
+
   @objc(deleteAccount:deletePrivateKey:transferAccountId:operatorAccountId:operatorPrivateKey:resolver:rejecter:)
   func deleteAccount(_ deleteAccountId: String, deletePrivateKey: String, transferAccountId: String, operatorAccountId: String, operatorPrivateKey: String,
                  resolver: @escaping RCTPromiseResolveBlock,
