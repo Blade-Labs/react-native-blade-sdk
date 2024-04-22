@@ -156,16 +156,30 @@ export default function App() {
 
   async function getTradeUrlHandler() {
     try {
-      const result = await BladeSdk.getTradeUrl(
-        CryptoFlowServiceStrategy.BUY,
-        operatorAccountId,
-        'USD',
-        100,
-        'HBAR',
-        2,
-        'moonpay'
+      console.log(
+        'BUY:',
+        await BladeSdk.getTradeUrl(
+          CryptoFlowServiceStrategy.BUY,
+          operatorAccountId,
+          'USD',
+          200,
+          'HBAR',
+          2,
+          'transak'
+        )
       );
-      console.log('getTradeUrl:', result);
+      console.log(
+        'SELL',
+        await BladeSdk.getTradeUrl(
+          CryptoFlowServiceStrategy.SELL,
+          operatorAccountId,
+          'HBAR',
+          2000,
+          'USD',
+          2,
+          'transak'
+        )
+      );
     } catch (e) {
       console.error('BladeSdk problem', e);
     }

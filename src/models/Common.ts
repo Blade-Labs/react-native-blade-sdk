@@ -6,9 +6,9 @@ export enum BladeEnv {
 }
 
 export enum CryptoFlowServiceStrategy {
-  BUY = 'BUY',
-  SELL = 'SELL',
-  SWAP = 'SWAP',
+  BUY = 'Buy',
+  SELL = 'Sell',
+  SWAP = 'Swap',
 }
 
 export interface InfoData {

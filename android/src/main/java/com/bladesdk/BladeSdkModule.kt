@@ -193,7 +193,7 @@ class BladeSdkModule(reactContext: ReactApplicationContext) :
     CoroutineScope(Dispatchers.Main).launch {
       try {
         Blade.exchangeGetQuotes(
-          sourceCode, sourceAmount, targetCode, CryptoFlowServiceStrategy.valueOf(strategy)
+          sourceCode, sourceAmount, targetCode, CryptoFlowServiceStrategy.fromValue(strategy) ?: CryptoFlowServiceStrategy.BUY
         ) { data, bladeJSError ->
           if (data != null) {
             promise.resolve(gson.toJson(data))
@@ -210,7 +210,7 @@ class BladeSdkModule(reactContext: ReactApplicationContext) :
   @ReactMethod fun getTradeUrl(strategy: String, accountId: String, sourceCode: String, sourceAmount: Double, targetCode: String, slippage: Double, serviceId: String, promise: Promise) {
     CoroutineScope(Dispatchers.Main).launch {
       try {
-        Blade.getTradeUrl(CryptoFlowServiceStrategy.valueOf(strategy), accountId, sourceCode, sourceAmount, targetCode, slippage, serviceId) { data, bladeJSError ->
+        Blade.getTradeUrl(CryptoFlowServiceStrategy.fromValue(strategy) ?: CryptoFlowServiceStrategy.BUY, accountId, sourceCode, sourceAmount, targetCode, slippage, serviceId) { data, bladeJSError ->
           if (data != null) {
             promise.resolve(gson.toJson(data))
           } else {
