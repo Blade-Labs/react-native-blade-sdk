@@ -226,8 +226,8 @@ class BladeSdk: NSObject {
     }
   }
 
-  @objc(getTradeUrl:accountId:sourceCode:sourceAmount:targetCode:slippage:serviceId:resolver:rejecter:)
-  func getTradeUrl(_ strategy: String, accountId: String, sourceCode: String, sourceAmount: Double, targetCode: String, slippage: Double, serviceId: String,
+  @objc(getTradeUrl:accountId:sourceCode:sourceAmount:targetCode:slippage:serviceId:redirectUrl:resolver:rejecter:)
+  func getTradeUrl(_ strategy: String, accountId: String, sourceCode: String, sourceAmount: Double, targetCode: String, slippage: Double, serviceId: String, redirectUrl: String,
                  resolver: @escaping RCTPromiseResolveBlock,
                  rejecter: @escaping RCTPromiseRejectBlock
   ) {
@@ -238,7 +238,8 @@ class BladeSdk: NSObject {
       sourceAmount: sourceAmount,
       targetCode: targetCode,
       slippage: slippage,
-      serviceId: serviceId
+      serviceId: serviceId,
+      redirectUrl
     ) { (result, error) in
       if (result != nil) {
         do {

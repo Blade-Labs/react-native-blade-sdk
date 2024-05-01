@@ -71,6 +71,7 @@ RCT_EXTERN_METHOD(getTradeUrl:(NSString *)strategy
                   targetCode: (NSString *)targetCode
                   slippage: (double *)slippage
                   serviceId: (NSString *)serviceId
+                  redirectUrl: (NSString *)redirectUrl
                   resolver: (RCTPromiseResolveBlock)resolve
                   rejecter: (RCTPromiseRejectBlock)reject)
 

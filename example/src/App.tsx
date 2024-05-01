@@ -177,7 +177,8 @@ export default function App() {
           2000,
           'USD',
           2,
-          'transak'
+          'transak',
+          'https://google.com'
         )
       );
     } catch (e) {

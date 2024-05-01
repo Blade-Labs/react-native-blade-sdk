@@ -131,7 +131,8 @@ class ReactBladeSDK {
     sourceAmount: number,
     targetCode: string,
     slippage: number,
-    serviceId: string
+    serviceId: string,
+    redirectUrl: string = ''
   ): Promise<IntegrationUrlData> {
     return BladeSdk.getTradeUrl(
       strategy,
@@ -140,7 +141,8 @@ class ReactBladeSDK {
       sourceAmount,
       targetCode,
       slippage,
-      serviceId
+      serviceId,
+      redirectUrl
     ).then(JSON.parse);
   }
 

@@ -207,10 +207,10 @@ class BladeSdkModule(reactContext: ReactApplicationContext) :
     }
   }
 
-  @ReactMethod fun getTradeUrl(strategy: String, accountId: String, sourceCode: String, sourceAmount: Double, targetCode: String, slippage: Double, serviceId: String, promise: Promise) {
+  @ReactMethod fun getTradeUrl(strategy: String, accountId: String, sourceCode: String, sourceAmount: Double, targetCode: String, slippage: Double, serviceId: String, redirectUrl: String, promise: Promise) {
     CoroutineScope(Dispatchers.Main).launch {
       try {
-        Blade.getTradeUrl(CryptoFlowServiceStrategy.fromValue(strategy) ?: CryptoFlowServiceStrategy.BUY, accountId, sourceCode, sourceAmount, targetCode, slippage, serviceId) { data, bladeJSError ->
+        Blade.getTradeUrl(CryptoFlowServiceStrategy.fromValue(strategy) ?: CryptoFlowServiceStrategy.BUY, accountId, sourceCode, sourceAmount, targetCode, slippage, serviceId, redirectUrl) { data, bladeJSError ->
           if (data != null) {
             promise.resolve(gson.toJson(data))
           } else {
