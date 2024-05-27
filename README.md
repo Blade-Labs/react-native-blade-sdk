@@ -1,99 +1,40 @@
-# react-native-blade-sdk
+# React-native-blade-sdk
 
-Blade SDK for React Native (limited functionality)
+Blade SDK for React Native (limited functionality). 
 
-## Installation
+This SDK is a bridge between React Native and [Swift Blade SDK](https://github.com/Blade-Labs/swift-blade) or [Kotlin Blade SDK](https://github.com/Blade-Labs/kotlin-blade). For now, it supports only basic functionality. In near future it will repeat all functionality of native SDKs.
 
-```sh
-npm install @bladelabs/react-native-blade-sdk
+## Getting Started
+
+### Requirements
+
+- Node.js 16.x or higher (MacOS/Linux)
+- Node.js 16.x to 18.x (Windows)
+
+### Install
+
+```
+npm i @bladelabs/react-native-blade-sdk
 ```
 
 ## Usage
 
-```js
-import BladeSdk, { BladeEnv, Network, CryptoFlowServiceStrategy } from '@bladelabs/react-native-blade-sdk';
-import type { CreateAccountData } from '@bladelabs/react-native-blade-sdk';
+```
+import BladeSdk, { BladeEnv, Network } from '@bladelabs/react-native-blade-sdk';
 
 // ...
 
-const operatorAccountId = '0.0.....';
-const operatorPrivateKey = '303002..............................................................................................';
-let createdAccount: CreateAccountData | null = null;
+const apiKey = 'reactsdktest';
+const dAppCode = 'FG9dUBQcBaBAPgCHz7DqmNZzrJyhewAMJytjwp3VFIEMFTXQyVSIDq6wRvtPcSAt';
 
-const initResult = await BladeSdk.initialize(apiKey, dAppCode, Network.Testnet, BladeEnv.CI, true);
+const initResult = await BladeSdk.initialize(apiKey, dAppCode, Network.Testnet, BladeEnv.Prod, true);
 
-const infoResult = await BladeSdk.getInfo();
-console.log('getInfo:', infoResult);
-
-const newAccountPrivateKey = '3030020100300706052b8104000a0422042047203b26c99c5f002d3b5c38b6bcd2ab46de8ad3fa90c5a39dcfdc5904dfa9a0';
-const accountResult = await BladeSdk.createAccount(
-    newAccountPrivateKey,
-    ''
-);
-console.log('createAccount:', accountResult);
-
-const deleteResult = await BladeSdk.deleteAccount(
-    accountResult.accountId,
-    accountResult.privateKey,
-    operatorAccountId,
-    operatorAccountId,
-    operatorPrivateKey
-);
-console.log('deleteAccount:', result);
-
-const associateResult = await BladeSdk.associateToken(
-    '0.0.2661784',
-    '0.0.4232099',
-    '3030020100300706052b8104000a0422042047203b26c99c5f002d3b5c38b6bcd2ab46de8ad3fa90c5a39dcfdc5904dfa9a0'
-);
-    console.log('associateResult:', associateResult);
-
-const balanceResult = await BladeSdk.getBalance(operatorAccountId);
+const balanceResult = await BladeSdk.getBalance("0.0.10001");
 console.log('getBalance:', balanceResult);
-
-const transactionsResult = await BladeSdk.getTransactions(operatorAccountId);
-console.log('getTransactions:', transactionsResult);
-
-const coinListResult = await BladeSdk.getCoinList();
-console.log('getCoinList:', coinListResult);
-
-const coinPriceResult = await BladeSdk.getCoinPrice('hbar', 'uah');
-console.log('getCoinPrice:', coinPriceResult);
-
-const quotesResult = await BladeSdk.exchangeGetQuotes(
-    'USD',
-    100,
-    'HBAR',
-    CryptoFlowServiceStrategy.BUY
-);
-console.log('exchangeGetQuotes:', quotesResult);
-
-const urlResult = await BladeSdk.getTradeUrl(
-    CryptoFlowServiceStrategy.BUY,
-    operatorAccountId,
-    'USD',
-    100,
-    'HBAR',
-    2,
-    'moonpay'
-);
-console.log('getTradeUrl:', urlResult);
-
-const signResult = await BladeSdk.sign(
-    Buffer.from('Hello, World!').toString('base64'),
-    newAccountPrivateKey
-);
-console.log('sign:', signResult);
 ```
 
-## Documentation 
+## Documentation
 
-Visit our [BladeSDK documentation portal](https://docs.bladelabs.io/)
+[React-native-blade-sdk documentation](SUMMARY.md).
 
-## License
-
-MIT
-
----
-
-Made with [create-react-native-library](https://github.com/callstack/react-native-builder-bob)
+For more information, please check our [Blade SDK Portal](https://docs.bladelabs.io/)  
