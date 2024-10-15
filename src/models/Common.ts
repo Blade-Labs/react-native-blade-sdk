@@ -166,3 +166,7 @@ export interface ICryptoFlowAsset {
   symbol?: string;
   imageUrl?: string;
 }
+
+export interface ResultData {
+  success: boolean;
+}
