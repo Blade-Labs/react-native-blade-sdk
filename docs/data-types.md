@@ -256,6 +256,15 @@ export interface ICryptoFlowQuoteService {
 ```
 
 
+### ResultData
+
+```typescript
+export interface ResultData {
+  success: boolean;
+}
+```
+
+
 ### InfoData
 
 ```typescript

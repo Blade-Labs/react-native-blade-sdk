@@ -186,6 +186,26 @@ export default function App() {
     }
   }
 
+  async function swapTokensHandler() {
+    try {
+      console.log('Swapping...');
+      console.log(
+        'SWAP',
+        await BladeSdk.swapTokens(
+          operatorAccountId,
+          operatorPrivateKey,
+          'HBAR',
+          1.23,
+          'SAUCE',
+          0.5,
+          'saucerswapV2'
+        )
+      );
+    } catch (e) {
+      console.error('BladeSdk problem', e);
+    }
+  }
+
   return (
     <View style={styles.container}>
       <Button
@@ -257,6 +277,12 @@ export default function App() {
       <Button
         onPress={getTradeUrlHandler}
         title="getTradeUrl"
+        color="#333384"
+        accessibilityLabel=""
+      />
+      <Button
+        onPress={swapTokensHandler}
+        title="swapTokens"
         color="#333384"
         accessibilityLabel=""
       />

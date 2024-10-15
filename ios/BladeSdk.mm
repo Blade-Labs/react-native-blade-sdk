@@ -24,7 +24,7 @@ RCT_EXTERN_METHOD(createAccount:(NSString *)privateKey
                   resolver: (RCTPromiseResolveBlock)resolve
                   rejecter: (RCTPromiseRejectBlock)reject)
 
-RCT_EXTERN_METHOD(associateToken:(NSString *)tokenId
+RCT_EXTERN_METHOD(associateToken:(NSString *)tokenIdOrCampaign
                   accountId: (NSString *)accountId
                   accountPrivateKey: (NSString *)accountPrivateKey
                   resolver: (RCTPromiseResolveBlock)resolve
@@ -72,6 +72,16 @@ RCT_EXTERN_METHOD(getTradeUrl:(NSString *)strategy
                   slippage: (double *)slippage
                   serviceId: (NSString *)serviceId
                   redirectUrl: (NSString *)redirectUrl
+                  resolver: (RCTPromiseResolveBlock)resolve
+                  rejecter: (RCTPromiseRejectBlock)reject)
+
+RCT_EXTERN_METHOD(swapTokens:(NSString *)accountId
+                  accountPrivateKey: (NSString *)accountPrivateKey
+                  sourceCode: (NSString *)sourceCode
+                  sourceAmount: (double *)sourceAmount
+                  targetCode: (NSString *)targetCode
+                  slippage: (double *)slippage
+                  serviceId: (NSString *)serviceId
                   resolver: (RCTPromiseResolveBlock)resolve
                   rejecter: (RCTPromiseRejectBlock)reject)
 

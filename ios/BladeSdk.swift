@@ -69,12 +69,12 @@ class BladeSdk: NSObject {
   }
 
   @objc(associateToken:accountId:accountPrivateKey:resolver:rejecter:)
-  func associateToken(_ tokenId: String, accountId: String, accountPrivateKey: String,
+  func associateToken(_ tokenIdOrCampaign: String, accountId: String, accountPrivateKey: String,
                  resolver: @escaping RCTPromiseResolveBlock,
                  rejecter: @escaping RCTPromiseRejectBlock
   ) {
     SwiftBlade.shared.associateToken(
-      tokenId: tokenId,
+      tokenIdOrCampaign: tokenIdOrCampaign,
       accountId: accountId,
       accountPrivateKey: accountPrivateKey
     ) { (result, error) in
@@ -240,6 +240,33 @@ class BladeSdk: NSObject {
       slippage: slippage,
       serviceId: serviceId,
       redirectUrl
+    ) { (result, error) in
+      if (result != nil) {
+        do {
+          let json = try JSONEncoder().encode(result)
+          resolver(String(data: json, encoding: .utf8) ?? "{}")
+        } catch {
+          rejecter("JSON encode problem", error.localizedDescription, error)
+        }
+      } else {
+        rejecter(error?.name, error?.reason, error)
+      }
+    }
+  }
+
+  @objc(swapTokens:accountPrivateKey:sourceCode:sourceAmount:targetCode:slippage:serviceId:resolver:rejecter:)
+  func getTradeUrl(_ accountId: String, accountPrivateKey: String, sourceCode: String, sourceAmount: Double, targetCode: String, slippage: Double, serviceId: String,
+                 resolver: @escaping RCTPromiseResolveBlock,
+                 rejecter: @escaping RCTPromiseRejectBlock
+  ) {
+    SwiftBlade.shared.swapTokens(
+      accountId: accountId,
+      accountPrivateKey: accountPrivateKey,
+      sourceCode: sourceCode,
+      sourceAmount: sourceAmount,
+      targetCode: targetCode,
+      slippage: slippage,
+      serviceId: serviceId
     ) { (result, error) in
       if (result != nil) {
         do {

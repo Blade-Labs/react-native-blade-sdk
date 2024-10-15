@@ -346,6 +346,43 @@ const urlResult = await BladeSdk.getTradeUrl(CryptoFlowServiceStrategy.BUY, oper
 console.log('getTradeUrl:', urlResult);
 ```
 
+## swapTokens
+
+Swap tokens
+
+`getTradeUrl(
+    accountId: string,
+    accountPrivateKey: string,
+    sourceCode: string,
+    sourceAmount: number,
+    targetCode: string,
+    slippage: number,
+    serviceId: string
+): Promise<ResultData>`
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------| ----------- |
+| `accountId` | `string` | account id |
+| `accountPrivateKey` | `string` | account private key |
+| `sourceCode` | `string` | name (HBAR, KARATE, USDC, other token code) |
+| `sourceAmount` | `number` | amount to swap |
+| `targetCode` | `string` | name (HBAR, KARATE, USDC, other token code) |
+| `slippage` | `number` | slippage in percents. Transaction will revert if the price changes unfavorably by more than this percentage. |
+| `serviceId` | `string` | service id to use (saucerswap, onmeta, etc) |
+
+#### Returns
+
+`Promise<ResultData>`
+
+#### Example
+
+```javascript
+const swapResult = await BladeSdk.swapTokens('0.0.10001', '302d300706052b8104000a032200029dc73991b0d9cd...', 'USDC', 123.4, 'KARATE', 0.5, 'moonpay');
+console.log('swapResult:', swapResult);
+```
+
 ## sign
 
 Sign base64-encoded message with private key. Returns hex-encoded signature.

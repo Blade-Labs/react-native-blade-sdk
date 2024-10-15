@@ -223,6 +223,22 @@ class BladeSdkModule(reactContext: ReactApplicationContext) :
     }
   }
 
+  @ReactMethod fun swapTokens(accountId: String, accountPrivateKey: String, sourceCode: String, sourceAmount: Double, targetCode: String, slippage: Double, serviceId: String, promise: Promise) {
+    CoroutineScope(Dispatchers.Main).launch {
+      try {
+        Blade.swapTokens(accountId, accountPrivateKey, sourceCode, sourceAmount, targetCode, slippage, serviceId) { data, bladeJSError ->
+          if (data != null) {
+            promise.resolve(gson.toJson(data))
+          } else {
+            promise.reject(gson.toJson(bladeJSError))
+          }
+        }
+      } catch (e: Exception) {
+        promise.reject(e)
+      }
+    }
+  }
+
   @ReactMethod fun sign(messageString: String, privateKey: String, promise: Promise) {
     CoroutineScope(Dispatchers.Main).launch {
       try {
