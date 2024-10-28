@@ -12,6 +12,7 @@ import type {
   CoinListData,
   SwapQuotesData,
   IntegrationUrlData,
+  ResultData,
 } from './models/Common';
 
 const LINKING_ERROR =
@@ -282,6 +283,40 @@ class ReactBladeSDK {
   }
 
   /**
+   * Swap tokens
+   * @param accountId: account id
+   * @param accountPrivateKey: account private key
+   * @param sourceCode: name (HBAR, KARATE, other token code)
+   * @param sourceAmount: amount to swap
+   * @param targetCode: name (HBAR, KARATE, other token code)
+   * @param slippage: slippage in percents. Transaction will revert if the price changes unfavorably by more than this percentage.
+   * @param serviceId: service id to use for swap (saucerswap, etc)
+   * @returns {Promise<ResultData>}
+   * @example
+   * const swapResult = await BladeSdk.swapTokens('0.0.10001', '302d300706052b8104000a032200029dc73991b0d9cd...', 'USDC', 123.4, 'KARATE', 0.5, 'moonpay');
+   * console.log('swapResult:', swapResult);
+   */
+  static async swapTokens(
+    accountId: string,
+    accountPrivateKey: string,
+    sourceCode: string,
+    sourceAmount: number,
+    targetCode: string,
+    slippage: number,
+    serviceId: string
+  ): Promise<ResultData> {
+    return BladeSdk.swapTokens(
+      accountId,
+      accountPrivateKey,
+      sourceCode,
+      sourceAmount,
+      targetCode,
+      slippage,
+      serviceId
+    ).then(JSON.parse);
+  }
+
+  /**
    * Sign base64-encoded message with private key. Returns hex-encoded signature.
    * @param messageString base64-encoded message to sign
    * @param privateKey hex-encoded private key with DER header
@@ -315,5 +350,6 @@ export type {
   CoinListData,
   SwapQuotesData,
   IntegrationUrlData,
+  ResultData,
 };
 export { BladeEnv, Network, CryptoFlowServiceStrategy };
