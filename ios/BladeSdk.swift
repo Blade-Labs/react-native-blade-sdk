@@ -138,6 +138,58 @@ class BladeSdk: NSObject {
     }
   }
 
+  @objc(transferHbars:accountPrivateKey:receiverId:amount:memo:resolver:rejecter:)
+  func transferHbars(_ accountId: String, accountPrivateKey: String, receiverId: String, amount: Double, memo: String,
+                 resolver: @escaping RCTPromiseResolveBlock,
+                 rejecter: @escaping RCTPromiseRejectBlock
+  ) {
+    SwiftBlade.shared.transferHbars(
+      accountId: accountId,
+      accountPrivateKey: accountPrivateKey,
+      receiverId: receiverId,
+      amount: Decimal(amount),
+      memo: memo
+    ) { (result, error) in
+      if (result != nil) {
+        do {
+          let json = try JSONEncoder().encode(result)
+          resolver(String(data: json, encoding: .utf8) ?? "{}")
+        } catch {
+          rejecter("JSON encode problem", error.localizedDescription, error)
+        }
+      } else {
+        rejecter(error?.name, error?.reason, error)
+      }
+    }
+  }
+
+  @objc(transferTokens:accountId:accountPrivateKey:receiverId:amountOrSerial:memo:usePaymaster:resolver:rejecter:)
+  func transferTokens(_ tokenId: String, accountId: String, accountPrivateKey: String, receiverId: String, amountOrSerial: Double, memo: String, usePaymaster: Bool,
+                 resolver: @escaping RCTPromiseResolveBlock,
+                 rejecter: @escaping RCTPromiseRejectBlock
+  ) {
+    SwiftBlade.shared.transferTokens(
+      tokenId: tokenId,
+      accountId: accountId,
+      accountPrivateKey: accountPrivateKey,
+      receiverId: receiverId,
+      amountOrSerial: Decimal(amountOrSerial),
+      memo: memo,
+      usePaymaster: usePaymaster
+    ) { (result, error) in
+      if (result != nil) {
+        do {
+          let json = try JSONEncoder().encode(result)
+          resolver(String(data: json, encoding: .utf8) ?? "{}")
+        } catch {
+          rejecter("JSON encode problem", error.localizedDescription, error)
+        }
+      } else {
+        rejecter(error?.name, error?.reason, error)
+      }
+    }
+  }
+
   @objc(getTransactions:transactionType:nextPage:transactionsLimit:resolver:rejecter:)
   func getTransactions(_ accountId: String, transactionType: String, nextPage: String, transactionsLimit: Int,
                  resolver: @escaping RCTPromiseResolveBlock,

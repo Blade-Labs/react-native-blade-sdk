@@ -12,6 +12,8 @@ import { Buffer } from 'buffer';
 const operatorAccountId = '0.0.1443';
 const operatorPrivateKey =
   '3030020100300706052b8104000a04220420ebccecef769bb5597d0009123a0fd96d2cdbe041c2a2da937aaf8bdc8731799b';
+const receiverAccountId = '0.0.1430';
+const tokenId = '0.0.2216053';
 
 export default function App() {
   let createdAccount: CreateAccountData | null = null;
@@ -100,8 +102,40 @@ export default function App() {
 
   async function balanceHandler() {
     try {
-      const result = await BladeSdk.getBalance('0.0.1430');
+      const result = await BladeSdk.getBalance(operatorAccountId);
       console.log('getBalance:', result);
+    } catch (e) {
+      console.error('BladeSdk problem', e);
+    }
+  }
+
+  async function transferHbarsHandler() {
+    try {
+      const result = await BladeSdk.transferHbars(
+        operatorAccountId,
+        operatorPrivateKey,
+        receiverAccountId,
+        1,
+        'react-native memo test hbars'
+      );
+      console.log('transferHbars:', result);
+    } catch (e) {
+      console.error('BladeSdk problem', e);
+    }
+  }
+
+  async function transferTokensHandler() {
+    try {
+      const result = await BladeSdk.transferTokens(
+        tokenId,
+        operatorAccountId,
+        operatorPrivateKey,
+        receiverAccountId,
+        1,
+        'react-native memo test tokens',
+        false
+      );
+      console.log('transferTokens:', result);
     } catch (e) {
       console.error('BladeSdk problem', e);
     }
@@ -109,7 +143,7 @@ export default function App() {
 
   async function transactionsHandler() {
     try {
-      const result = await BladeSdk.getTransactions('0.0.1430');
+      const result = await BladeSdk.getTransactions(operatorAccountId);
       console.log('getTransactions:', result);
     } catch (e) {
       console.error('BladeSdk problem', e);
@@ -191,14 +225,16 @@ export default function App() {
       console.log('Swapping...');
       console.log(
         'SWAP',
-        await BladeSdk.swapTokens(
-          operatorAccountId,
-          operatorPrivateKey,
-          'HBAR',
-          1.23,
-          'SAUCE',
-          0.5,
-          'saucerswapV2'
+        JSON.stringify(
+          await BladeSdk.swapTokens(
+            operatorAccountId,
+            operatorPrivateKey,
+            'HBAR',
+            1.23,
+            'SAUCE',
+            0.5,
+            'saucerswapV2'
+          )
         )
       );
     } catch (e) {
@@ -247,6 +283,18 @@ export default function App() {
       <Button
         onPress={balanceHandler}
         title="getBalance"
+        color="#ff84e5"
+        accessibilityLabel=""
+      />
+      <Button
+        onPress={transferHbarsHandler}
+        title="transferHbars"
+        color="#ff84e5"
+        accessibilityLabel=""
+      />
+      <Button
+        onPress={transferTokensHandler}
+        title="transferTokens"
         color="#ff84e5"
         accessibilityLabel=""
       />

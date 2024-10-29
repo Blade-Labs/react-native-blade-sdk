@@ -170,3 +170,10 @@ export interface ICryptoFlowAsset {
 export interface ResultData {
   success: boolean;
 }
+
+export interface SwapResultData {
+  success: boolean;
+  sourceAddress: string;
+  targetAddress: string;
+  balance: BalanceData;
+}

@@ -136,6 +136,41 @@ class BladeSdkModule(reactContext: ReactApplicationContext) :
     }
   }
 
+  @ReactMethod fun transferHbars(accountId: String, accountPrivateKey: String, receiverId: String, amount: Double, memo: String, promise: Promise) {
+    CoroutineScope(Dispatchers.Main).launch {
+      try {
+        Blade.transferHbars(
+          accountId, accountPrivateKey, receiverId, amount, memo
+        ) { data, bladeJSError ->
+          if (data != null) {
+            promise.resolve(gson.toJson(data))
+          } else {
+            promise.reject(gson.toJson(bladeJSError))
+          }
+        }
+      } catch (e: Exception) {
+        promise.reject(e)
+      }
+    }
+  }
+
+  @ReactMethod fun transferTokens(tokenId: String, accountId: String, accountPrivateKey: String, receiverId: String, amountOrSerial: Double, memo: String, usePaymaster: Boolean, promise: Promise) {
+    CoroutineScope(Dispatchers.Main).launch {
+      try {
+        Blade.transferTokens(
+          tokenId, accountId, accountPrivateKey, receiverId, amountOrSerial, memo, usePaymaster
+        ) { data, bladeJSError ->
+          if (data != null) {
+            promise.resolve(gson.toJson(data))
+          } else {
+            promise.reject(gson.toJson(bladeJSError))
+          }
+        }
+      } catch (e: Exception) {
+        promise.reject(e)
+      }
+    }
+  }
 
   @ReactMethod fun getTransactions(accountId: String, transactionType: String, nextPage: String, transactionsLimit: Double, promise: Promise) {
     CoroutineScope(Dispatchers.Main).launch {

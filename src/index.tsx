@@ -13,6 +13,7 @@ import type {
   SwapQuotesData,
   IntegrationUrlData,
   ResultData,
+  SwapResultData,
 } from './models/Common';
 
 const LINKING_ERROR =
@@ -166,6 +167,80 @@ class ReactBladeSDK {
   }
 
   /**
+   * Method to execute Hbar transfers from current account to receiver
+   *
+   * @param accountId: sender account id (0.0.xxxxx)
+   * @param accountPrivateKey: sender's hex-encoded private key with DER-header (302e020100300506032b657004220420...). ECDSA or Ed25519
+   * @param amount: amount
+   * @param memo: transaction memo (limited to 100 characters)
+   * @returns {Promise<TransactionReceiptData>} receipt
+   * @example
+   * const senderId = '0.0.10001'
+   * const senderKey = '302d300706052b8104000a032200029dc73991b0d9cd...'
+   * const receiverId = '0.0.10002'
+   * const amount = 2.5
+   *
+   * const transferResult = await BladeSdk.transferHbars(senderId, senderKey, receiverId, amount, "Some memo text");
+   * console.log('transferHbars:', transferResult);
+   */
+  static async transferHbars(
+    accountId: string,
+    accountPrivateKey: string,
+    receiverId: string,
+    amount: number,
+    memo: string
+  ): Promise<TransactionReceiptData> {
+    return BladeSdk.transferHbars(
+      accountId,
+      accountPrivateKey,
+      receiverId,
+      amount,
+      memo
+    ).then(JSON.parse);
+  }
+
+  /**
+   * Method to execute token transfers from current account to receiver
+   *
+   * @param tokenId: token id to send (0.0.xxxxx)
+   * @param accountId: sender account id (0.0.xxxxx)
+   * @param accountPrivateKey: sender's hex-encoded private key with DER-header (302e020100300506032b657004220420...). ECDSA or Ed25519
+   * @param receiverId: receiver account id (0.0.xxxxx)
+   * @param amountOrSerial: amount of fungible tokens to send (with token-decimals correction) on NFT serial number
+   * @param memo: transaction memo (limited to 100 characters)
+   * @param usePaymaster if true, Paymaster account will pay fee transaction. Only for single dApp configured fungible-token. In that case tokenId not used
+   * @returns {Promise<TransactionReceiptData>} receipt
+   * @example
+   * const tokenId = '0.0.1337'
+   * const senderId = '0.0.10001'
+   * const senderKey = '302d300706052b8104000a032200029dc73991b0d9cd...'
+   * const receiverId = '0.0.10002'
+   * const amount = 2.5
+   *
+   * const transferResult = await BladeSdk.transferTokens(senderId, senderKey, receiverId, amount, "Some memo text");
+   * console.log('transferHbars:', transferResult);
+   */
+  static async transferTokens(
+    tokenId: string,
+    accountId: string,
+    accountPrivateKey: string,
+    receiverId: string,
+    amountOrSerial: number,
+    memo: string,
+    usePaymaster: boolean = false
+  ): Promise<TransactionReceiptData> {
+    return BladeSdk.transferTokens(
+      tokenId,
+      accountId,
+      accountPrivateKey,
+      receiverId,
+      amountOrSerial,
+      memo,
+      usePaymaster
+    ).then(JSON.parse);
+  }
+
+  /**
    * Get transactions history for account. Can be filtered by transaction type.
    * Transaction requested from mirror node. Every transaction requested for child transactions. Result are flattened.
    * If transaction type is not provided, all transactions will be returned.
@@ -291,7 +366,7 @@ class ReactBladeSDK {
    * @param targetCode: name (HBAR, KARATE, other token code)
    * @param slippage: slippage in percents. Transaction will revert if the price changes unfavorably by more than this percentage.
    * @param serviceId: service id to use for swap (saucerswap, etc)
-   * @returns {Promise<ResultData>}
+   * @returns {Promise<SwapResultData>}
    * @example
    * const swapResult = await BladeSdk.swapTokens('0.0.10001', '302d300706052b8104000a032200029dc73991b0d9cd...', 'USDC', 123.4, 'KARATE', 0.5, 'moonpay');
    * console.log('swapResult:', swapResult);
@@ -304,7 +379,7 @@ class ReactBladeSDK {
     targetCode: string,
     slippage: number,
     serviceId: string
-  ): Promise<ResultData> {
+  ): Promise<SwapResultData> {
     return BladeSdk.swapTokens(
       accountId,
       accountPrivateKey,
@@ -351,5 +426,6 @@ export type {
   SwapQuotesData,
   IntegrationUrlData,
   ResultData,
+  SwapResultData,
 };
 export { BladeEnv, Network, CryptoFlowServiceStrategy };

@@ -11,7 +11,7 @@ PODS:
     - React-Core (= 0.73.6)
     - React-jsi (= 0.73.6)
     - ReactCommon/turbomodule/core (= 0.73.6)
-  - FingerprintPro (2.6.0)
+  - FingerprintPro (2.7.0)
   - Flipper (0.201.0):
     - Flipper-Folly (~> 2.6)
   - Flipper-Boost-iOSX (1.76.0.1.11)
@@ -946,11 +946,11 @@ PODS:
   - React-Mapbuffer (0.73.6):
     - glog
     - React-debug
-  - react-native-blade-sdk (0.6.34):
+  - react-native-blade-sdk (0.6.35):
     - glog
     - RCT-Folly (= 2022.05.16.00)
     - React-Core
-    - SwiftBlade (~> 0.6.34)
+    - SwiftBlade (~> 0.6.35)
   - React-nativeconfig (0.73.6)
   - React-NativeModulesApple (0.73.6):
     - glog
@@ -1119,7 +1119,7 @@ PODS:
     - React-logger (= 0.73.6)
     - React-perflogger (= 0.73.6)
   - SocketRocket (0.6.1)
-  - SwiftBlade (0.6.34):
+  - SwiftBlade (0.6.35):
     - BigInt (~> 5.0.0)
     - FingerprintPro (~> 2.4)
   - Yoga (1.14.0)
@@ -1327,7 +1327,7 @@ SPEC CHECKSUMS:
   DoubleConversion: fea03f2699887d960129cc54bba7e52542b6f953
   FBLazyVector: f64d1e2ea739b4d8f7e4740cde18089cd97fe864
   FBReactNativeSpec: 9f2b8b243131565335437dba74923a8d3015e780
-  FingerprintPro: 3f06f491c77d871ab543b49fd25fddc52dc34f8c
+  FingerprintPro: 0c7dbd28fc83751ca64b06328e2fb22bbc7ed118
   Flipper: c7a0093234c4bdd456e363f2f19b2e4b27652d44
   Flipper-Boost-iOSX: fd1e2b8cbef7e662a122412d7ac5f5bea715403c
   Flipper-DoubleConversion: 2dc99b02f658daf147069aad9dbd29d8feb06d30
@@ -1362,7 +1362,7 @@ SPEC CHECKSUMS:
   React-jsinspector: 85583ef014ce53d731a98c66a0e24496f7a83066
   React-logger: 3eb80a977f0d9669468ef641a5e1fabbc50a09ec
   React-Mapbuffer: 84ea43c6c6232049135b1550b8c60b2faac19fab
-  react-native-blade-sdk: 6dbb84bd83ce9f42af7457eaa8c0e01a325510c1
+  react-native-blade-sdk: 1ed48810ec75df625781eaf46894c4882dec0922
   React-nativeconfig: b4d4e9901d4cabb57be63053fd2aa6086eb3c85f
   React-NativeModulesApple: cd26e56d56350e123da0c1e3e4c76cb58a05e1ee
   React-perflogger: 5f49905de275bac07ac7ea7f575a70611fa988f2
@@ -1384,7 +1384,7 @@ SPEC CHECKSUMS:
   React-utils: d16c1d2251c088ad817996621947d0ac8167b46c
   ReactCommon: 2aa35648354bd4c4665b9a5084a7d37097b89c10
   SocketRocket: f32cd54efbe0f095c4d7594881e52619cfe80b17
-  SwiftBlade: bb3da340deac380d12b2b217b7c2e965be8927cc
+  SwiftBlade: b188cf0ae1b9251538a3dcf67bd5e9604aa5014e
   Yoga: 805bf71192903b20fc14babe48080582fee65a80
 
 PODFILE CHECKSUM: d1494120bc2d54562af663f222d88e8ad316cfb6
