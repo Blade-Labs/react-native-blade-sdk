@@ -6,11 +6,14 @@
 * [associateToken](usage.md#associatetoken)
 * [deleteAccount](usage.md#deleteaccount)
 * [getBalance](usage.md#getbalance)
+* [transferHbars](usage.md#transferhbars)
+* [transferTokens](usage.md#transfertokens)
 * [getTransactions](usage.md#gettransactions)
 * [getCoinList](usage.md#getcoinlist)
 * [getCoinPrice](usage.md#getcoinprice)
 * [exchangeGetQuotes](usage.md#exchangegetquotes)
 * [getTradeUrl](usage.md#gettradeurl)
+* [swapTokens](usage.md#swaptokens)
 * [sign](usage.md#sign)
 
 # Methods
@@ -198,6 +201,85 @@ const balanceResult = await BladeSdk.getBalance('0.0.10001');
 console.log('getBalance:', balanceResult);
 ```
 
+## transferHbars
+
+Method to execute Hbar transfers from current account to receiver
+
+`transferHbars(
+    accountId: string, 
+    accountPrivateKey: string, 
+    receiverId: string, 
+    amount: number, 
+    memo: string): Promise<TransactionReceiptData>`
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------| ----------- |
+| `accountId` | `string` | : sender account id (0.0.xxxxx) |
+| `accountPrivateKey` | `string` | : sender's hex-encoded private key with DER-header (302e020100300506032b657004220420...). ECDSA or Ed25519 |
+| `receiverId` | `string` |  |
+| `amount` | `number` | : amount |
+| `memo` | `string` | : transaction memo (limited to 100 characters) |
+
+#### Returns
+
+`Promise<TransactionReceiptData>` - receipt
+
+#### Example
+
+```javascript
+const senderId = '0.0.10001'
+const senderKey = '302d300706052b8104000a032200029dc73991b0d9cd...'
+const receiverId = '0.0.10002'
+const amount = 2.5
+
+const transferResult = await BladeSdk.transferHbars(senderId, senderKey, receiverId, amount, "Some memo text");
+console.log('transferHbars:', transferResult);
+```
+
+## transferTokens
+
+Method to execute token transfers from current account to receiver
+
+`transferTokens(
+    tokenId: string, 
+    accountId: string, 
+    accountPrivateKey: string, 
+    receiverId: string, 
+    amountOrSerial: number, 
+    memo: string, 
+    usePaymaster: boolean = false): Promise<TransactionReceiptData>`
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------| ----------- |
+| `tokenId` | `string` | : token id to send (0.0.xxxxx) |
+| `accountId` | `string` | : sender account id (0.0.xxxxx) |
+| `accountPrivateKey` | `string` | : sender's hex-encoded private key with DER-header (302e020100300506032b657004220420...). ECDSA or Ed25519 |
+| `receiverId` | `string` | : receiver account id (0.0.xxxxx) |
+| `amountOrSerial` | `number` | : amount of fungible tokens to send (with token-decimals correction) on NFT serial number |
+| `memo` | `string` | : transaction memo (limited to 100 characters) |
+| `usePaymaster` | `boolean` | if true, Paymaster account will pay fee transaction. Only for single dApp configured fungible-token. In that case tokenId not used |
+
+#### Returns
+
+`Promise<TransactionReceiptData>` - receipt
+
+#### Example
+
+```javascript
+const tokenId = '0.0.1337'
+const senderId = '0.0.10001'
+const senderKey = '302d300706052b8104000a032200029dc73991b0d9cd...'
+const receiverId = '0.0.10002'
+const amount = 2.5
+
+const transferResult = await BladeSdk.transferTokens(senderId, senderKey, receiverId, amount, "Some memo text");
+console.log('transferHbars:', transferResult);
+```
+
 ## getTransactions
 
 Get transactions history for account. Can be filtered by transaction type.
@@ -350,31 +432,30 @@ console.log('getTradeUrl:', urlResult);
 
 Swap tokens
 
-`getTradeUrl(
-    accountId: string,
-    accountPrivateKey: string,
-    sourceCode: string,
-    sourceAmount: number,
-    targetCode: string,
-    slippage: number,
-    serviceId: string
-): Promise<ResultData>`
+`swapTokens(
+    accountId: string, 
+    accountPrivateKey: string, 
+    sourceCode: string, 
+    sourceAmount: number, 
+    targetCode: string, 
+    slippage: number, 
+    serviceId: string): Promise<SwapResultData>`
 
 #### Parameters
 
 | Name | Type | Description |
 |------|------| ----------- |
-| `accountId` | `string` | account id |
-| `accountPrivateKey` | `string` | account private key |
-| `sourceCode` | `string` | name (HBAR, KARATE, USDC, other token code) |
-| `sourceAmount` | `number` | amount to swap |
-| `targetCode` | `string` | name (HBAR, KARATE, USDC, other token code) |
-| `slippage` | `number` | slippage in percents. Transaction will revert if the price changes unfavorably by more than this percentage. |
-| `serviceId` | `string` | service id to use (saucerswap, onmeta, etc) |
+| `accountId` | `string` | : account id |
+| `accountPrivateKey` | `string` | : account private key |
+| `sourceCode` | `string` | : name (HBAR, KARATE, other token code) |
+| `sourceAmount` | `number` | : amount to swap |
+| `targetCode` | `string` | : name (HBAR, KARATE, other token code) |
+| `slippage` | `number` | : slippage in percents. Transaction will revert if the price changes unfavorably by more than this percentage. |
+| `serviceId` | `string` | : service id to use for swap (saucerswap, etc) |
 
 #### Returns
 
-`Promise<ResultData>`
+`Promise<SwapResultData>`
 
 #### Example
 

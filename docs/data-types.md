@@ -256,15 +256,6 @@ export interface ICryptoFlowQuoteService {
 ```
 
 
-### ResultData
-
-```typescript
-export interface ResultData {
-  success: boolean;
-}
-```
-
-
 ### InfoData
 
 ```typescript
@@ -303,6 +294,18 @@ export interface SignMessageData {
 ```typescript
 export interface SwapQuotesData {
   quotes: ICryptoFlowQuote[];
+}
+```
+
+
+### SwapResultData
+
+```typescript
+export interface SwapResultData {
+  success: boolean;
+  sourceAddress: string;
+  targetAddress: string;
+  balance: BalanceData;
 }
 ```
 
