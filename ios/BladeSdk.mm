@@ -42,6 +42,24 @@ RCT_EXTERN_METHOD(getBalance:(NSString *)accountId
                   resolver: (RCTPromiseResolveBlock)resolve
                   rejecter: (RCTPromiseRejectBlock)reject)
 
+RCT_EXTERN_METHOD(transferHbars:(NSString *)accountId
+                  accountPrivateKey: (NSString *)accountPrivateKey
+                  receiverId: (NSString *)receiverId
+                  amount: (double *)amount
+                  memo: (NSString *)memo
+                  resolver: (RCTPromiseResolveBlock)resolve
+                  rejecter: (RCTPromiseRejectBlock)reject)
+
+RCT_EXTERN_METHOD(transferTokens:(NSString *)tokenId
+                  accountId: (NSString *)accountId
+                  accountPrivateKey: (NSString *)accountPrivateKey
+                  receiverId: (NSString *)receiverId
+                  amountOrSerial: (double *)amountOrSerial
+                  memo: (NSString *)memo
+                  usePaymaster: (BOOL)usePaymaster
+                  resolver: (RCTPromiseResolveBlock)resolve
+                  rejecter: (RCTPromiseRejectBlock)reject)
+
 RCT_EXTERN_METHOD(getTransactions:(NSString *)accountId
                   transactionType: (NSString *)transactionType
                   nextPage: (NSString *)nextPage
