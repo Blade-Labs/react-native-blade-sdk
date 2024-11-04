@@ -14,6 +14,7 @@ import type {
   IntegrationUrlData,
   ResultData,
   SwapResultData,
+  TransakOrderInfo,
 } from './models/Common';
 
 const LINKING_ERROR =
@@ -358,6 +359,22 @@ class ReactBladeSDK {
   }
 
   /**
+   * Get exchange order status
+   * @param serviceId service id to use for swap (saucerswap, onmeta, etc)
+   * @param orderId order id of operation
+   * @returns {Promise<TransakOrderInfo>}
+   * @example
+   * const orderInfo = await BladeSdk.getExchangeStatus('transak', 'abaf28be-609f-49f4-a09a-e8e7ea7c8bd9');
+   * console.log('getExchangeStatus:', orderInfo);
+   */
+  static async getExchangeStatus(
+    serviceId: string,
+    orderId: string
+  ): Promise<TransakOrderInfo> {
+    return BladeSdk.getExchangeStatus(serviceId, orderId).then(JSON.parse);
+  }
+
+  /**
    * Swap tokens
    * @param accountId: account id
    * @param accountPrivateKey: account private key
@@ -427,5 +444,6 @@ export type {
   IntegrationUrlData,
   ResultData,
   SwapResultData,
+  TransakOrderInfo,
 };
 export { BladeEnv, Network, CryptoFlowServiceStrategy };

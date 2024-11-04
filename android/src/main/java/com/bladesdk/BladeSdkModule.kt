@@ -258,6 +258,22 @@ class BladeSdkModule(reactContext: ReactApplicationContext) :
     }
   }
 
+  @ReactMethod fun getExchangeStatus(serviceId: String, orderId: String, promise: Promise) {
+    CoroutineScope(Dispatchers.Main).launch {
+      try {
+        Blade.getExchangeStatus(serviceId, orderId) { data, bladeJSError ->
+          if (data != null) {
+            promise.resolve(gson.toJson(data))
+          } else {
+            promise.reject(gson.toJson(bladeJSError))
+          }
+        }
+      } catch (e: Exception) {
+        promise.reject(e)
+      }
+    }
+  }
+
   @ReactMethod fun swapTokens(accountId: String, accountPrivateKey: String, sourceCode: String, sourceAmount: Double, targetCode: String, slippage: Double, serviceId: String, promise: Promise) {
     CoroutineScope(Dispatchers.Main).launch {
       try {

@@ -93,6 +93,11 @@ RCT_EXTERN_METHOD(getTradeUrl:(NSString *)strategy
                   resolver: (RCTPromiseResolveBlock)resolve
                   rejecter: (RCTPromiseRejectBlock)reject)
 
+RCT_EXTERN_METHOD(getExchangeStatus:(NSString *)serviceId
+                  orderId: (NSString *)orderId
+                  resolver: (RCTPromiseResolveBlock)resolve
+                  rejecter: (RCTPromiseRejectBlock)reject)
+
 RCT_EXTERN_METHOD(swapTokens:(NSString *)accountId
                   accountPrivateKey: (NSString *)accountPrivateKey
                   sourceCode: (NSString *)sourceCode
