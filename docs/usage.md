@@ -13,6 +13,7 @@
 * [getCoinPrice](usage.md#getcoinprice)
 * [exchangeGetQuotes](usage.md#exchangegetquotes)
 * [getTradeUrl](usage.md#gettradeurl)
+* [getExchangeStatus](usage.md#getexchangestatus)
 * [swapTokens](usage.md#swaptokens)
 * [sign](usage.md#sign)
 
@@ -426,6 +427,32 @@ Get configured url to buy or sell tokens or fiat
 ```javascript
 const urlResult = await BladeSdk.getTradeUrl(CryptoFlowServiceStrategy.BUY, operatorAccountId, 'USD', 100, 'HBAR', 2, 'moonpay', '');
 console.log('getTradeUrl:', urlResult);
+```
+
+## getExchangeStatus
+
+Get exchange order status
+
+`getExchangeStatus(
+    serviceId: string, 
+    orderId: string): Promise<TransakOrderInfo>`
+
+#### Parameters
+
+| Name | Type | Description |
+|------|------| ----------- |
+| `serviceId` | `string` | service id to use for swap (saucerswap, onmeta, etc) |
+| `orderId` | `string` | order id of operation |
+
+#### Returns
+
+`Promise<TransakOrderInfo>`
+
+#### Example
+
+```javascript
+const orderInfo = await BladeSdk.getExchangeStatus('transak', 'abaf28be-609f-49f4-a09a-e8e7ea7c8bd9');
+console.log('getExchangeStatus:', orderInfo);
 ```
 
 ## swapTokens
