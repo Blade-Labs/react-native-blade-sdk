@@ -946,11 +946,11 @@ PODS:
   - React-Mapbuffer (0.73.6):
     - glog
     - React-debug
-  - react-native-blade-sdk (0.6.35):
+  - react-native-blade-sdk (0.6.36):
     - glog
     - RCT-Folly (= 2022.05.16.00)
     - React-Core
-    - SwiftBlade (~> 0.6.35)
+    - SwiftBlade (~> 0.6.36)
   - React-nativeconfig (0.73.6)
   - React-NativeModulesApple (0.73.6):
     - glog
@@ -1119,7 +1119,7 @@ PODS:
     - React-logger (= 0.73.6)
     - React-perflogger (= 0.73.6)
   - SocketRocket (0.6.1)
-  - SwiftBlade (0.6.35):
+  - SwiftBlade (0.6.36):
     - BigInt (~> 5.0.0)
     - FingerprintPro (~> 2.4)
   - Yoga (1.14.0)
@@ -1362,7 +1362,7 @@ SPEC CHECKSUMS:
   React-jsinspector: 85583ef014ce53d731a98c66a0e24496f7a83066
   React-logger: 3eb80a977f0d9669468ef641a5e1fabbc50a09ec
   React-Mapbuffer: 84ea43c6c6232049135b1550b8c60b2faac19fab
-  react-native-blade-sdk: 1ed48810ec75df625781eaf46894c4882dec0922
+  react-native-blade-sdk: 6839b3619c4aad5af84f5fad86b099faa803ad50
   React-nativeconfig: b4d4e9901d4cabb57be63053fd2aa6086eb3c85f
   React-NativeModulesApple: cd26e56d56350e123da0c1e3e4c76cb58a05e1ee
   React-perflogger: 5f49905de275bac07ac7ea7f575a70611fa988f2
@@ -1384,7 +1384,7 @@ SPEC CHECKSUMS:
   React-utils: d16c1d2251c088ad817996621947d0ac8167b46c
   ReactCommon: 2aa35648354bd4c4665b9a5084a7d37097b89c10
   SocketRocket: f32cd54efbe0f095c4d7594881e52619cfe80b17
-  SwiftBlade: b188cf0ae1b9251538a3dcf67bd5e9604aa5014e
+  SwiftBlade: f24e4017cbf8f3425b5d88c2cb3f3265fb6c826f
   Yoga: 805bf71192903b20fc14babe48080582fee65a80
 
 PODFILE CHECKSUM: d1494120bc2d54562af663f222d88e8ad316cfb6

@@ -220,6 +220,22 @@ export default function App() {
     }
   }
 
+  async function getExchangeStatusHandler() {
+    try {
+      console.log(
+        'getExchangeStatus',
+        JSON.stringify(
+          await BladeSdk.getExchangeStatus(
+            'transak',
+            'abaf28be-609f-49f4-a09a-e8e7ea7c8bd9'
+          )
+        )
+      );
+    } catch (e) {
+      console.error('BladeSdk problem', e);
+    }
+  }
+
   async function swapTokensHandler() {
     try {
       console.log('Swapping...');
@@ -328,6 +344,13 @@ export default function App() {
         color="#333384"
         accessibilityLabel=""
       />
+      <Button
+        onPress={getExchangeStatusHandler}
+        title="getExchangeStatus"
+        color="#333384"
+        accessibilityLabel=""
+      />
+
       <Button
         onPress={swapTokensHandler}
         title="swapTokens"

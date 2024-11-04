@@ -306,6 +306,28 @@ class BladeSdk: NSObject {
     }
   }
 
+  @objc(getExchangeStatus:orderId:resolver:rejecter:)
+  func getExchangeStatus(_ serviceId: String, orderId: String,
+                 resolver: @escaping RCTPromiseResolveBlock,
+                 rejecter: @escaping RCTPromiseRejectBlock
+  ) {
+    SwiftBlade.shared.getExchangeStatus(
+      serviceId: serviceId,
+      orderId: orderId
+    ) { (result, error) in
+      if (result != nil) {
+        do {
+          let json = try JSONEncoder().encode(result)
+          resolver(String(data: json, encoding: .utf8) ?? "{}")
+        } catch {
+          rejecter("JSON encode problem", error.localizedDescription, error)
+        }
+      } else {
+        rejecter(error?.name, error?.reason, error)
+      }
+    }
+  }
+
   @objc(swapTokens:accountPrivateKey:sourceCode:sourceAmount:targetCode:slippage:serviceId:resolver:rejecter:)
   func getTradeUrl(_ accountId: String, accountPrivateKey: String, sourceCode: String, sourceAmount: Double, targetCode: String, slippage: Double, serviceId: String,
                  resolver: @escaping RCTPromiseResolveBlock,
